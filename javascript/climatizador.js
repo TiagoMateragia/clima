@@ -1,20 +1,27 @@
 // Variáveis para ligação com o HTML.
-let nome_dia_um = document.querySelector('.nome_dia_um');
-let graus_dia_um = document.querySelector('.graus_dia_um');
-let imagem_dia_um = document.querySelector('.imagem_dia_um');
-let nome_dia_dois = document.querySelector('.nome_dia_dois');
-let graus_dia_dois = document.querySelector('.graus_dia_dois');
-let imagem_dia_dois = document.querySelector('.imagem_dia_dois');
-let nome_dia_tres = document.querySelector('.nome_dia_tres');
-let graus_dia_tres = document.querySelector('.graus_dia_tres');
-let imagem_dia_tres = document.querySelector('.imagem_dia_tres');
-let nome_dia_quatro = document.querySelector('.nome_dia_quatro');
-let graus_dia_quatro = document.querySelector('.graus_dia_quatro');
-let imagem_dia_quatro = document.querySelector('.imagem_dia_quatro');
-let nome_dia_cinco = document.querySelector('.nome_dia_cinco');
-let graus_dia_cinco = document.querySelector('.graus_dia_cinco');
-let imagem_dia_cinco = document.querySelector('.imagem_dia_cinco');
+let nomeDias = [
+    document.querySelector('.nome_dia_um'),
+    document.querySelector('.nome_dia_dois'),
+    document.querySelector('.nome_dia_tres'),
+    document.querySelector('.nome_dia_quatro'),
+    document.querySelector('.nome_dia_cinco')
+];
 
+let grausDias = [
+    document.querySelector('.graus_dia_um'),
+    document.querySelector('.graus_dia_dois'),
+    document.querySelector('.graus_dia_tres'),
+    document.querySelector('.graus_dia_quatro'),
+    document.querySelector('.graus_dia_cinco')
+];
+
+let imagensDias = [
+    document.querySelector('.imagem_dia_um'),
+    document.querySelector('.imagem_dia_dois'),
+    document.querySelector('.imagem_dia_tres'),
+    document.querySelector('.imagem_dia_quatro'),
+    document.querySelector('.imagem_dia_cinco')
+];
 //Função para pegar a latitude e longitude do usuário.
 function pegar_local(){
 //Define um obj com a latitude e longitude encontrada na posição do usuário.
@@ -27,21 +34,11 @@ function pegar_local(){
     }
 //Mensagem de erro caso o usuário negue a permissão.
     let local_erro = erro =>{
-        nome_dia_um.innerHTML = "Acesso não concedido.";
-        graus_dia_um.innerHTML = "Acesso não concedido.";
-        imagem_dia_um.innerHTML = "Acesso não concedido.";
-        nome_dia_dois.innerHTML = "Acesso não concedido.";
-        graus_dia_dois.innerHTML = "Acesso não concedido.";
-        imagem_dia_dois.innerHTML = "Acesso não concedido.";
-        nome_dia_tres.innerHTML = "Acesso não concedido.";
-        graus_dia_tres.innerHTML = "Acesso não concedido.";
-        imagem_dia_tres.innerHTML = "Acesso não concedido.";
-        nome_dia_quatro.innerHTML = "Acesso não concedido.";
-        graus_dia_quatro.innerHTML = "Acesso não concedido.";
-        imagem_dia_quatro.innerHTML = "Acesso não concedido.";
-        nome_dia_cinco.innerHTML = "Acesso não concedido.";
-        graus_dia_cinco.innerHTML = "Acesso não concedido.";
-        imagem_dia_cinco.innerHTML = "Acesso não concedido.";
+        for (let i = 0; i < 5; i++) {
+            nomeDias[i].textContent = "Acesso negado";
+            grausDias[i].textContent = "Acesso negado";
+            imagensDias[i].textContent = "Acesso negado";
+        }
     }
 //Solicita permissão e encontra a posição do usuário.
     navigator.geolocation.getCurrentPosition(achar_posicao, local_erro);
@@ -49,12 +46,37 @@ function pegar_local(){
 
 //Função para mostrar as informações do clima.
 function mostrar_clima(dados){
-    fetch("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,weathercode&timezone=auto")
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${dados.latitude}&longitude=${dados.longitude}&daily=temperature_2m_max,weathercode&timezone=auto`)
     .then((dado) =>{
         return dado.json();
     })
     .then((dado_json) =>{
-        console.log(dado_json);
+//Separa os dados da API em 3 listas para poder usar depois no loop.
+        const dias = dado_json.daily.time;
+        const temperaturas = dado_json.daily.temperature_2m_max;
+        const clima = dado_json.daily.weathercode;
+
+//Loop para a visualização do clima para o usuário.
+        for (let i = 0; i < 5; i++) {
+            const dataObj = new Date(dias[i] + "T00:00:00-03:00");
+            const nomeDia = dataObj.toLocaleDateString("pt-BR", { weekday: "long" });
+
+            nomeDias[i].textContent = nomeDia;
+            grausDias[i].textContent = `${temperaturas[i]}°C`;
+
+            if (clima[i] == 0 || clima[i] == 1){
+                imagensDias[i].textContent = "SOL";
+            }
+            else if (clima[i] == 2 || clima[i] == 3 || clima[i] == 45 || clima[i] == 48){
+                imagensDias[i].textContent = "NUBLADO";
+            }
+            else if (clima[i] == 51 || clima[i] == 53 || clima[i] == 55){
+                imagensDias[i].textContent = "GAROA";
+            }
+            else if (clima[i] >= 61 && clima[i] <= 99){
+                imagensDias[i].textContent = "CHUVA";
+            }
+        }
     })
 }
 
