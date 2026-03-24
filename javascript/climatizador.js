@@ -1,4 +1,6 @@
 // Variáveis para ligação com o HTML.
+let body = document.querySelector('body');
+
 let nomeDias = [
     document.querySelector('.nome_dia_um'),
     document.querySelector('.nome_dia_dois'),
@@ -65,16 +67,40 @@ function mostrar_clima(dados){
             grausDias[i].textContent = `${temperaturas[i]}°C`;
 
             if (clima[i] == 0 || clima[i] == 1){
-                imagensDias[i].textContent = "SOL";
+                imagensDias[i].innerHTML = "<img class = img_clima src=imagens/clima_sol.png alt=>";
             }
             else if (clima[i] == 2 || clima[i] == 3 || clima[i] == 45 || clima[i] == 48){
-                imagensDias[i].textContent = "NUBLADO";
+                imagensDias[i].innerHTML = "<img class = img_clima src=imagens/clima_nublado.png alt=>";
             }
             else if (clima[i] == 51 || clima[i] == 53 || clima[i] == 55){
-                imagensDias[i].textContent = "GAROA";
+                imagensDias[i].innerHTML = "<img class = img_clima src=imagens/clima_garoa.png alt=>";
             }
             else if (clima[i] >= 61 && clima[i] <= 99){
-                imagensDias[i].textContent = "CHUVA";
+               imagensDias[i].innerHTML = "<img class = img_clima src=imagens/clima_chuva.png alt=>";
+            }
+//Muda o fundo da página conforme o clima do dia atual.
+            if (clima[0] == 0 || clima[0] == 1){
+                body.style.backgroundImage = "url('imagens/fundo_sol.png')";
+                body.style.backgroundSize = "cover";
+                body.style.backgroundRepeat = "no-repeat";
+            }
+
+            else if (clima[0] == 2 || clima[0] == 3 || clima[0] == 45 || clima[0] == 48){
+                body.style.backgroundImage = "url('imagens/fundo_nublado.png')";
+                body.style.backgroundSize = "cover";
+                body.style.backgroundRepeat = "no-repeat";
+            }
+
+            else if (clima[0] == 51 || clima[0] == 53 || clima[0] == 55){
+                body.style.backgroundImage = "url('imagens/fundo_chuva.png')";
+                body.style.backgroundSize = "cover";
+                body.style.backgroundRepeat = "no-repeat";
+            }
+
+            else if (clima[0] >= 61 && clima[0] <= 99){
+                body.style.backgroundImage = "url('imagens/fundo_tempestade.png')";
+                body.style.backgroundSize = "cover";
+                body.style.backgroundRepeat = "no-repeat";
             }
         }
     })
