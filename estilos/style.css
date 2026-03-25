@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
 html, body{
     padding: 0;
     margin: 0;
@@ -25,6 +27,14 @@ html, body{
     border-radius: 30px;
     border: 1px solid #0000005d;
     background-color: #cccaca31;
+    box-shadow: 4px 4px 10px #0000005b, -4px -4px 10px #0000005b;
+    font-size: 1.2em;
+    font-family: "VT323";
+    transition: .5s;
+}
+.dia_um:hover, .dia_dois:hover, .dia_tres:hover, .dia_quatro:hover, .dia_cinco:hover{
+    background-color: #ffffffb1;
+    transition: .5s;
 }
 .img_clima{
     width: 100%;
