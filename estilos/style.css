@@ -40,3 +40,40 @@ html, body{
     width: 100%;
     max-width: 300px;
 }
+
+@media (max-width: 510px){
+    body, html{
+        padding: 0;
+        margin: 0;
+        min-height: 100dvh;
+    }
+    .bloco_conteudo{
+        display: flex;
+        flex-direction: column;
+        max-width: 510px;
+        height: auto;
+    }
+    .dia_um, .dia_dois, .dia_tres, .dia_quatro, .dia_cinco{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 100%;
+        height: 500px;
+        border-radius: 30px;
+        border: 1px solid #0000005d;
+        background-color: #cccaca31;
+        box-shadow: 4px 4px 10px #0000005b, -4px -4px 10px #0000005b;
+        font-size: 1.2em;
+        font-family: "VT323";
+        transition: .5s;
+    }
+    .dia_um:hover, .dia_dois:hover, .dia_tres:hover, .dia_quatro:hover, .dia_cinco:hover{
+        background-color: #cccaca31;
+        transition: .5s;
+    }
+    .dia_um:active, .dia_dois:active, .dia_tres:active, .dia_quatro:active, .dia_cinco:active{
+        background-color: #ffffffb1;
+        transition: .5s;
+    }
+}

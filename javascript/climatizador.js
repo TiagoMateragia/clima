@@ -83,24 +83,28 @@ function mostrar_clima(dados){
                 body.style.backgroundImage = "url('imagens/fundo_sol.png')";
                 body.style.backgroundSize = "cover";
                 body.style.backgroundRepeat = "no-repeat";
+                body.style.backgroundPosition = "center";
             }
 
             else if (clima[0] == 2 || clima[0] == 3 || clima[0] == 45 || clima[0] == 48){
                 body.style.backgroundImage = "url('imagens/fundo_nublado.png')";
                 body.style.backgroundSize = "cover";
                 body.style.backgroundRepeat = "no-repeat";
+                body.style.backgroundPosition = "center";
             }
 
             else if (clima[0] == 51 || clima[0] == 53 || clima[0] == 55){
                 body.style.backgroundImage = "url('imagens/fundo_chuva.png')";
                 body.style.backgroundSize = "cover";
                 body.style.backgroundRepeat = "no-repeat";
+                body.style.backgroundPosition = "center";
             }
 
             else if (clima[0] >= 61 && clima[0] <= 99){
                 body.style.backgroundImage = "url('imagens/fundo_tempestade.png')";
                 body.style.backgroundSize = "cover";
                 body.style.backgroundRepeat = "no-repeat";
+                body.style.backgroundPosition = "center";
             }
         }
     })
