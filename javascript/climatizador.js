@@ -1,5 +1,6 @@
 // Variáveis para ligação com o HTML.
 let body = document.querySelector('body');
+let loading = document.querySelector('#loading');
 
 let nomeDias = [
     document.querySelector('.nome_dia_um'),
@@ -36,6 +37,7 @@ function pegar_local(){
     }
 //Mensagem de erro caso o usuário negue a permissão.
     let local_erro = erro =>{
+        loading.textContent = "Permissão de localização negada";
         for (let i = 0; i < 5; i++) {
             nomeDias[i].textContent = "Acesso negado";
             grausDias[i].textContent = "Acesso negado";
@@ -57,6 +59,7 @@ function mostrar_clima(dados){
         const dias = dado_json.daily.time;
         const temperaturas = dado_json.daily.temperature_2m_max;
         const clima = dado_json.daily.weathercode;
+        loading.style.display = "none";
 
 //Loop para a visualização do clima para o usuário.
         for (let i = 0; i < 5; i++) {
